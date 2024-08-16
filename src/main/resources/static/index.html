@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>AngularJS REST Client</title>
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="MainController">
+
+    <h1>RESTful Web Service with AngularJS</h1>
+    <button ng-click="getData()">Get Data</button>
+    <pre>{{ data | json }}</pre>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('MainController', ['$scope', '$http', function($scope, $http) {
+                $scope.data = {};
+
+                $scope.getData = function() {
+                    $http.get('http://localhost:8999/api/posts1')
+                        .then(function(response) {
+                            $scope.data = response.data;
+                        }, function(error) {
+                            console.error('Error occurred:', error);
+                        });
+                };
+            }]);
+    </script>
+
+</body>
+</html>
